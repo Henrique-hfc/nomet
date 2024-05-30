@@ -9,8 +9,8 @@ PV = 0      #Numero de Barras de Geração
 Vslack = cm.rect(1.05,0)
 
 sq = np.zeros(PQN,dtype=complex)        #Potencia da Carga em PU LEMBRAR QUE NO TRABALHO TEM UMA BARRA COM CARGA E GERACAO DAI PRECISA CALCULAR CORRETAMENTE
-sq[0] = -(2.566 + 1j*1.102)
-sq[1] = -(1.386 + 1j*0.452)
+sq[0] = -(2.566 - 1j*1.102)             #O menos faz parte da formula, ja to deixando pronto pra facilitar
+sq[1] = -(1.386 - 1j*0.452)
 
 ZN = np.zeros(Nz,dtype=complex) #Array para as impedancias
 YN = np.zeros(Nz*Nz,dtype=complex)
@@ -36,6 +36,7 @@ print(YN)       #MATRIZ ADMITANCIA
 
 precision = 0.00001
 IT=1
+IT2=1
 aux = np.zeros(PQN,dtype=complex)
 aux[0] = 1      #V2 IT-1
 aux[1] = 1      #V3 IT-1
@@ -47,12 +48,22 @@ while IT > precision:
 
     Vpq[1] = (1 / YN[2, 2]) * ((sq[1] / np.conj(aux[1])) - ((YN[0, 2] * Vslack) + (YN[1, 2] * aux[0])))
 
-
-
-
+    RV2N_1,a = cm.polar(aux[0])
+    RV2N,b = cm.polar(Vpq[0])
+    RV3N_1,c = cm.polar(aux[1])
+    RV3N,d = cm.polar(Vpq[1])
+    IT = RV2N_1 - RV2N
+    IT2 = RV3N_1 - RV3N
+    if(IT2>IT):
+        IT=IT2
     aux[0] = Vpq[0]
     aux[1] = Vpq[1]
 
 
     if IT <= precision:
         break
+
+V2 = cm.polar(Vpq[0])
+V3 = cm.polar(Vpq[1])
+print(V2)
+print(V3)
