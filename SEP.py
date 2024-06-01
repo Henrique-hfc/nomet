@@ -24,29 +24,25 @@ B25 = complex(0, 0.88)
 B45 = complex(0, 0.44)
 
 #DIAGONAL PRINCIPAL
-Yt[0] = 1/Zt[0]                             #Y11
-Yt[6] = (1/Zt[1])+(1/Zt[2])                 #Y22
-Yt[12] = 1/Zt[3]                            #Y33
-Yt[18] = (1/Zt[3])+(1/Zt[4])+(1/Zt[2])      #Y44
-Yt[24] = (1/Zt[0])+(1/Zt[4])+(1/Zt[1])      #Y55
+Yt[0] = 1/Zt[0]                                             #Y11
+Yt[6] = (1/Zt[1])+(1/Zt[2]+(B24/2)+(B25/2))                 #Y22
+Yt[12] = 1/Zt[3]                                            #Y33
+Yt[18] = (1/Zt[3])+(1/Zt[4])+(1/Zt[2])+(B24/2)+(B45/2)      #Y44
+Yt[24] = (1/Zt[0])+(1/Zt[4])+(1/Zt[1])+(B25/2)+(B45/2)      #Y55
 
-Yt[4] = -(1/Zt[0])                          #Y15
-Yt[8] = -(1/Zt[2])                          #Y24
-Yt[9] = -(1/Zt[1])                          #Y25
-Yt[13] = -(1/Zt[3])                         #Y34
-Yt[16] = Yt[8]                              #Y42
-Yt[17] = Yt[13]                             #Y43
-Yt[19] = -(1/Zt[4])                         #Y44
-Yt[20] = Yt[4]                              #Y45
-Yt[21] = Yt[9]                              #Y52
-Yt[23] = Yt[19]                             #Y54
-
-
+Yt[4] = -(1/Zt[0])                                          #Y15
+Yt[8] = -(1/Zt[2])                                          #Y24
+Yt[9] = -(1/Zt[1])                                          #Y25
+Yt[13] = -(1/Zt[3])                                         #Y34
+Yt[16] = Yt[8]                                              #Y42
+Yt[17] = Yt[13]                                             #Y43
+Yt[19] = -(1/Zt[4])                                         #Y44
+Yt[20] = Yt[4]                                              #Y45
+Yt[21] = Yt[9]                                              #Y52
+Yt[23] = Yt[19]                                             #Y54
 
 Yt = Yt.reshape(Nb, Nb) #Preferi trabalhar em vetor por isso depois joguei pra matriz
 
-print("Matriz Admitância")
-print(Yt)
 
 #FAZER UMA FUNÇÃO PARA CONVERTER PRA PU AS POTENCIAS
 
