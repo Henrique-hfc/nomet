@@ -1,7 +1,58 @@
 import numpy as np
 import cmath as cm
 
+Nb = 5      #NUMERO DE BARRAS
+
+Sb = 100000000
+Vb13 = 15000
+Vb245 = 345000
+
+Zb13 = (Vb13**2)/Sb
+Zb245 = (Vb245**2)/Sb
+
+Vt = np.array([1, 1, 1.05, 1, 1],dtype=complex)     #Tensoes Iniciais em cada barra em ordem 1 - 2 - 3 - 4 - 5
+
+#Matriz Admitancia v2
+
+Yt = np.zeros(Nb*Nb,dtype=complex)
+
+#Impedancias
+Zt = np.array([complex(0.0015, 0.02),complex(0.0045, 0.05),complex(0.009, 0.1),complex(0.00075, 0.01),complex(0.00152, 0.015)],dtype=complex)        #Z15 - Z52 - Z24 - Z43 - Z45
+
+B24 = complex(0, 1.72)
+B25 = complex(0, 0.88)
+B45 = complex(0, 0.44)
+
+#DIAGONAL PRINCIPAL
+Yt[0] = 1/Zt[0]                             #Y11
+Yt[6] = (1/Zt[1])+(1/Zt[2])                 #Y22
+Yt[12] = 1/Zt[3]                            #Y33
+Yt[18] = (1/Zt[3])+(1/Zt[4])+(1/Zt[2])      #Y44
+Yt[24] = (1/Zt[0])+(1/Zt[4])+(1/Zt[1])      #Y55
+
+Yt[4] = -(1/Zt[0])                          #Y15
+Yt[8] = -(1/Zt[2])                          #Y24
+Yt[9] = -(1/Zt[1])                          #Y25
+Yt[13] = -(1/Zt[3])                         #Y34
+Yt[16] = Yt[8]                              #Y42
+Yt[17] = Yt[13]                             #Y43
+Yt[19] = -(1/Zt[4])                         #Y44
+Yt[20] = Yt[4]                              #Y45
+Yt[21] = Yt[9]                              #Y52
+Yt[23] = Yt[19]                             #Y54
+
+
+
+Yt = Yt.reshape(Nb, Nb) #Preferi trabalhar em vetor por isso depois joguei pra matriz
+
+print("Matriz Admitância")
+print(Yt)
+
 #FAZER UMA FUNÇÃO PARA CONVERTER PRA PU AS POTENCIAS
+
+
+
+
 
 Nz = 3      #Numero de Impedâncias
 PQN = 2      #Numero de Barras de Carga
