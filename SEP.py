@@ -49,6 +49,19 @@ Pesp = np.array([0,-8,0,0,0])           #Potencia Ativas Pg-Pl P1 - P2 - P3 - P4
 Qesp = np.array([0,-2.8,0,0,0])         #Potencia Reativas Qg-Ql Q1 - Q2 - Q3 - Q4 - Q5
 
 
+#Barras PQ     2 - 4 - 5  OU SEJA NAO CONHEÇO A TENSAO DESSES
+#Barras PV     1 - 3      OU SEJA NAO CONHEÇO NO MINIMO O Q DELES
+
+
+i=1
+while i!=0:
+    Vt[1]=(1/Yt[1][1])*(((Pesp[1]-complex(0,Qesp[1]))/(np.conj(Vt[1]))) - Yt[1][0]*Vt[0] - Yt[1][2]*Vt[2] - Yt[1][3]*Vt[3] - Yt[1][4]*Vt[4])
+    Vt[3]=(1/Yt[3][3])*(((Pesp[3]-complex(0,Qesp[3]))/(np.conj(Vt[3]))) - Yt[1][0]*Vt[0] - Yt[1][2]*Vt[2] - Yt[1][3]*Vt[3] - Yt[1][4]*Vt[4])
+    # Vt[4]=
+    print(Vt[1])
+    i=0
+
+
 
 
 Nz = 3      #Numero de Impedâncias
