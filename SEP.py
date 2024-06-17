@@ -56,9 +56,9 @@ Qesp = np.array([0,-2.8,0,0,0])         #Potencia Reativas Qg-Ql Q1 - Q2 - Q3 - 
 i=1
 while i!=0:
     Vt[1]=(1/Yt[1][1])*(((Pesp[1]-complex(0,Qesp[1]))/(np.conj(Vt[1]))) - Yt[1][0]*Vt[0] - Yt[1][2]*Vt[2] - Yt[1][3]*Vt[3] - Yt[1][4]*Vt[4])
-    Vt[3]=(1/Yt[3][3])*(((Pesp[3]-complex(0,Qesp[3]))/(np.conj(Vt[3]))) - Yt[1][0]*Vt[0] - Yt[1][2]*Vt[2] - Yt[1][3]*Vt[3] - Yt[1][4]*Vt[4])
-    # Vt[4]=
-    print(Vt[1])
+    Vt[3]=(1/Yt[3][3])*(((Pesp[3]-complex(0,Qesp[3]))/(np.conj(Vt[3]))) - Yt[3][0]*Vt[0] - Yt[3][2]*Vt[2] - Yt[3][1]*Vt[1] - Yt[3][4]*Vt[4])
+    Vt[4]=(1/Yt[4][4])*(((Pesp[4]-complex(0,Qesp[4]))/(np.conj(Vt[4]))) - Yt[4][0]*Vt[0] - Yt[4][2]*Vt[2] - Yt[4][3]*Vt[3] - Yt[4][1]*Vt[1])
+
     i=0
 
 
