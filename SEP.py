@@ -43,9 +43,10 @@ Yt[23] = Yt[19]                                             #Y54
 
 Yt = Yt.reshape(Nb, Nb) #Preferi trabalhar em vetor por isso depois joguei pra matriz
 
+print(Yt)
 
-#FAZER UMA FUNÇÃO PARA CONVERTER PRA PU AS POTENCIAS
-
+Pesp = np.array([0,-8,0,0,0])           #Potencia Ativas Pg-Pl P1 - P2 - P3 - P4 - P5
+Qesp = np.array([0,-2.8,0,0,0])         #Potencia Reativas Qg-Ql Q1 - Q2 - Q3 - Q4 - Q5
 
 
 
@@ -79,7 +80,7 @@ YN[2,0] = YN[0,2]     #ADMITANCIA 52
 YN[1,2] = -1/ZN[2]     #ADMITANCIA 45
 YN[2,1] = YN[1,2]     #ADMITANCIA 54
 
-print(YN)       #MATRIZ ADMITANCIA
+#print(YN)       #MATRIZ ADMITANCIA
 
 precision = 0.00001
 IT=1
@@ -112,5 +113,5 @@ while IT > precision:
 
 V2 = cm.polar(Vpq[0])
 V3 = cm.polar(Vpq[1])
-print(V2)
-print(V3)
+# print(V2)
+# print(V3)
