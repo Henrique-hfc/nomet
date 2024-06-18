@@ -68,13 +68,12 @@ def atualizar_tensoes(tipos_barra, tensoes, potencias_ativas, potencias_reativas
     tolerancia = 0.00001  # Tolerância de convergência
     iteracao = 1  # Contador de iteração
 
-    while iteracao < 300:
+    while iteracao != 0:
         tensoes[2, :] = tensoes[0, :]  # Faz backup das tensões atuais para cálculo de erro
 
         # Verifica a convergência
         if np.all(erros[1:, 0] <= tolerancia) and np.all(erros[1:, 1] <= tolerancia):
-            num_iteracoes = iteracao
-            iteracao = 1000
+            iteracao = 0
             break
 
         # Atualiza as tensões
@@ -98,7 +97,6 @@ def atualizar_tensoes(tipos_barra, tensoes, potencias_ativas, potencias_reativas
             erros[k, 0] = np.abs(np.real(tensoes[0, k]) - np.real(tensoes[2, k]))
             erros[k, 1] = np.abs(np.imag(tensoes[0, k]) - np.imag(tensoes[2, k]))
 
-        iteracao += 1
 
     return tensoes, potencias_ativas, potencias_reativas
 
