@@ -17,13 +17,13 @@ Zb245 = (Vb245**2)/Sb
 Yt = np.zeros(Nb*Nb,dtype=complex)
 
 #Impedancias
-Zt = np.array([complex(0.0015, 0.02),complex(0.0045, 0.05),complex(0.009, 0.1),complex(0.00075, 0.01),complex(0.00152, 0.015)],dtype=complex)        #Z15 - Z52 - Z24 - Z43 - Z45
+Zt = np.array([complex(0.0015+0.02j),complex(0.0045+0.05j),complex(0.009+0.1j),complex(0.00075+0.01j),complex(0.00152+0.015j)], dtype=complex)        #Z15 - Z52 - Z24 - Z43 - Z45
 
-B24 = complex(0, 1.72)
-B25 = complex(0, 0.88)
-B45 = complex(0, 0.44)
+B24 = complex(0+1.72j)
+B25 = complex(0+0.88j)
+B45 = complex(0+0.44j)
 
-print(cmath.polar(B24))
+
 
 #DIAGONAL PRINCIPAL
 Yt[0] = 1/Zt[0]                                             #Y11
@@ -44,8 +44,6 @@ Yt[21] = Yt[9]                                              #Y52
 Yt[23] = Yt[19]                                             #Y54
 
 Yt = Yt.reshape(Nb, Nb) #Preferi trabalhar em vetor por isso depois joguei pra matriz
-
-# print(Yt)
 
 Pesp = np.array([0,-8,0,0,0])           #Potencia Ativas Pg-Pl P1 - P2 - P3 - P4 - P5
 Qesp = np.array([0,-2.8,0,0,0])         #Potencia Reativas Qg-Ql Q1 - Q2 - Q3 - Q4 - Q5
@@ -75,18 +73,32 @@ while i!=0:
     Qcalc[0] = - Qcalc[0].imag
     Qcalc[1] = - Qcalc[1].imag      #Nao confundir aqui é da barra 3
 
+    if Qcalc[0] < -2.8:
+        Qcalc[0] = -2.8
+    else:
+        if(Qcalc[0] > 4):
+            Qcalc[0] = 4
+
+    if Qcalc[1] < -2.8:
+        Qcalc[1] = -2.8
+    else:
+        if(Qcalc[1] > 4):
+            Qcalc[1] = 4
+
     Vtp[0] = (1/Yt[0][0])*(((Pesp[0]-complex(0,Qcalc[0]))/np.conj(Vta[0])) - Yt[0][1]*Vta[1] - Yt[0][2]*Vta[2] - Yt[0][3]*Vta[3] - Yt[0][4]*Vta[4])
     Vtp[1] = (1/Yt[2][2])*(((Pesp[2]-complex(0,Qcalc[1]))/np.conj(Vta[2])) - Yt[2][1]*Vta[1] - Yt[2][0]*Vta[0] - Yt[2][3]*Vta[3] - Yt[2][4]*Vta[4])
 
-    # Vtp[0] = cmath.polar(Vtp[0])
-    # Vtp[1] = cmath.polar(Vtp[1])
+    #Modificar o Vtp para polar e mudar o seu angulo
+
+    Vtpang0 = np.angle(Vtp[0])
+    Vtpang1 = np.angle(Vtp[1])
+
+    Vt[0] = abs(Vta[0]) * np.exp(1j*Vtpang0)
+    Vt[2] = abs(Vta[2]) * np.exp(1j*Vtpang1)
 
     # Vta[0] = cmath.polar(Vta[0])
     # Vta[2] = cmath.polar(Vta[2])
 
-
-
-    Vt[0] = cmath.polar(np.abs(Vta[0]), np.angle(Vtp[0], deg= True))        #talvez erro aqui
 
     Vt[1]=(1/Yt[1][1])*(((Pesp[1]-complex(0,Qesp[1]))/(np.conj(Vta[1]))) - Yt[1][0]*Vta[0] - Yt[1][2]*Vta[2] - Yt[1][3]*Vta[3] - Yt[1][4]*Vta[4])
     Vt[3]=(1/Yt[3][3])*(((Pesp[3]-complex(0,Qesp[3]))/(np.conj(Vta[3]))) - Yt[3][0]*Vta[0] - Yt[3][2]*Vta[2] - Yt[3][1]*Vta[1] - Yt[3][4]*Vta[4])
