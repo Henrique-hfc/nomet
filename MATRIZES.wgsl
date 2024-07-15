@@ -13,5 +13,9 @@ fn idx(n: i32, j: i32) -> i32 {{
 @compute
 @workgroup_size(wsx, wsy)
 fn matriz_kernel(@builtin(global_invocation_id) index: vec3<u32>){
+    let j: i32 = i32(index.y);
+    let i: i32 = i32(index.x);
+    let ix : i32 = idx(i,j);
 
+    matriz[ix] = matriz[ix]+1;
 }

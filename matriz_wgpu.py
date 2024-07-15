@@ -46,9 +46,9 @@ command_encoder = device.create_command_encoder()
 compute_pass = command_encoder.begin_compute_pass()
 compute_pass.set_bind_group(0, bg_0, [], 0, 999999)
 
-for i in range(wsx):
-    compute_pass.set_pipeline(compute_teste)
-    compute_pass.dispatch_workgroups(wsx,wsy)
+# for i in range(wsx):
+compute_pass.set_pipeline(compute_teste)
+compute_pass.dispatch_workgroups(wsx,wsy)
 
 compute_pass.end()
 device.queue.submit([command_encoder.finish()])
